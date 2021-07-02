@@ -1,16 +1,14 @@
 package screen
 
 type Screen struct {
-	Height int
-	Width  int
+	State         [][]bool
+	Height, Width int
 }
 
-type ScreenState [][]bool
-
-func NewScreenState(screen Screen) ScreenState {
-	screenarray := make([][]bool, screen.Height)
-	for i, _ := range screenarray {
-		screenarray[i] = make([]bool, screen.Width)
+func (f *Screen) Activated(line, col int) bool {
+	if line >= 0 && col >= 0 && line < f.Height && col < f.Width {
+		return f.State[line][col]
+	} else {
+		return false
 	}
-	return screenarray
 }

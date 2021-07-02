@@ -6,32 +6,28 @@ import (
 
 //https://play.golang.org/p/P-Dk0NH_vf
 
-func GameOfLife(last_state screen.ScreenState) screen.ScreenState {
-	new_state := last_state
-	for h, line := range new_state {
-		for v, _ := range line {
+func GameOfLife(screen screen.Screen) {
+	//FIXME: does not seem to make a real copy of the state.....
+	new_state := screen.State
+	for l, line := range new_state {
+		for c, _ := range line {
 			count_alive := 0
-			neighbours := [8]bool{
-				last_state[h-1][v-1],
-				last_state[h-1][v],
-				last_state[h-1][v+1],
-				last_state[h][v-1],
-				last_state[h][v+1],
-				last_state[h+1][v-1],
-				last_state[h+11][v],
-				last_state[h+1][v+1],
-			}
-			for _, element := range neighbours {
-				if element {
-					count_alive += 1
+			for i := -1; i <= 1; i++ {
+				for j := -1; j <= 1; j++ {
+					if (j != 0 || i != 0) && screen.Activated(l+i, c+j) {
+						count_alive++
+					}
 				}
 			}
 			if count_alive == 3 {
-				new_state[h][v] = true
-			} else if count_alive < 2 || count_alive > 3 {
-				new_state[h][v] = false
+				new_state[l][c] = true
+			} else if count_alive == 2 {
+				new_state[l][c] = screen.Activated(l, c)
+			} else {
+				new_state[l][c] = false
 			}
 		}
 	}
-	return new_state
+	//.... and this is a bit naive
+	screen.State = new_state
 }
