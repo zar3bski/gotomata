@@ -5,13 +5,7 @@ import (
 )
 
 func GameOfLife(screen screen.Screen) {
-	/*FIXME: probably not the most elegant way to copy this matrix
-	see https://stackoverflow.com/a/45465853/7648881 for details*/
-	new_state := make([][]bool, len(screen.State))
-	for i := range screen.State {
-		new_state[i] = make([]bool, len(screen.State[i]))
-		copy(new_state[i], screen.State[i])
-	}
+	new_state := screen.State
 	for l, line := range new_state {
 		for c, _ := range line {
 			count_alive := 0

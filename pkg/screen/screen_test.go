@@ -17,3 +17,15 @@ func TestActivated(t *testing.T) {
 		t.Fatalf(`error`)
 	}
 }
+
+func TestConstructor(t *testing.T) {
+	s := NewScreen(3, 4, "random")
+	if s.Height != 4 {
+		t.Fatalf(`error: wrong height`)
+	}
+}
+
+//func TestDisplay(t *testing.T) {
+//	s := Screen{Height: 3, Width: 3, State: [][]bool{{true, true, true}, {false, true, false}, {false, true, true}}}
+//
+//}
