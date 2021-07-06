@@ -4,11 +4,14 @@ import (
 	"github.com/zar3bski/gotomata/pkg/screen"
 )
 
-//https://play.golang.org/p/P-Dk0NH_vf
-
 func GameOfLife(screen screen.Screen) {
-	//FIXME: does not seem to make a real copy of the state.....
-	new_state := screen.State
+	/*FIXME: probably not the most elegant way to copy this matrix
+	see https://stackoverflow.com/a/45465853/7648881 for details*/
+	new_state := make([][]bool, len(screen.State))
+	for i := range screen.State {
+		new_state[i] = make([]bool, len(screen.State[i]))
+		copy(new_state[i], screen.State[i])
+	}
 	for l, line := range new_state {
 		for c, _ := range line {
 			count_alive := 0
@@ -28,6 +31,5 @@ func GameOfLife(screen screen.Screen) {
 			}
 		}
 	}
-	//.... and this is a bit naive
-	screen.State = new_state
+	copy(screen.State, new_state)
 }
