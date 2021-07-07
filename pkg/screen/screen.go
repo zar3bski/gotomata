@@ -2,12 +2,25 @@ package screen
 
 import (
 	"bytes"
+	"log"
 	"math/rand"
+	"os"
+	"os/exec"
 )
 
 type Screen struct {
 	State         [][]bool
 	Height, Width int
+}
+
+func GetTerminalSize() []byte {
+	cmd := exec.Command("stty", "size")
+	cmd.Stdin = os.Stdin
+	out, err := cmd.Output()
+	if err != nil {
+		log.Fatal(err)
+	}
+	return out
 }
 
 func NewScreen(width int, height int, mode string) Screen {
@@ -40,7 +53,7 @@ func (s *Screen) Display() string {
 		for x := 0; x < s.Width; x++ {
 			b := byte(' ')
 			if s.State[y][x] {
-				b = '*'
+				b = '#'
 			}
 			buf.WriteByte(b)
 		}
