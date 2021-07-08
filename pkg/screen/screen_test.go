@@ -23,6 +23,9 @@ func TestConstructor(t *testing.T) {
 	if s.Height != 4 {
 		t.Fatalf(`error: wrong height`)
 	}
+	if len(s.State[0]) != 3 {
+		t.Fatalf(`error: wrong matrix width. Expected %d, got %d`, 3, len(s.State[0]))
+	}
 }
 
 //func TestDisplay(t *testing.T) {
