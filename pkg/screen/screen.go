@@ -46,8 +46,8 @@ func NewScreen(width int, height int, mode string) Screen {
 		initial_state[w] = make([]bool, width)
 	}
 	if mode == "random" {
-		for h := 0; h < height-1; h++ {
-			for w := 0; w < width-1; w++ {
+		for h := 0; h < height; h++ {
+			for w := 0; w < width; w++ {
 				initial_state[h][w] = rand.Int31()&0x01 == 0
 			}
 		}
