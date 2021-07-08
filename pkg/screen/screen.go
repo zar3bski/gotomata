@@ -69,7 +69,7 @@ func (s *Screen) Display() string {
 		for x := 0; x < s.Width; x++ {
 			b := byte(' ')
 			if s.State[y][x] {
-				b = '#'
+				b = 'o'
 			}
 			buf.WriteByte(b)
 		}
